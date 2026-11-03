@@ -21,7 +21,7 @@ function createNewPost({
   }
 
   return supaClient.rpc("create_new_post", {
-    user_id: session.user.id,
+    userid: session.user.id,
     title,
     content,
   });
