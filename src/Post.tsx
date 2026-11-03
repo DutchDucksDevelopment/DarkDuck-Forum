@@ -383,6 +383,10 @@ function CreateComment({
   );
 }
 
+function getParentId(path: string): string {
+  return path.split(".").at(-1) ?? "";
+}
+
 function unsortedCommentsToNested(
   comments: GetSinglePostWithCommentResponse[],
   rootPostId: string | undefined
