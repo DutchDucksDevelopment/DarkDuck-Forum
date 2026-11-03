@@ -22,7 +22,11 @@ export default function AllPosts() {
       .rpc("get_posts", { page_number: queryPageNumber })
       .select("*")
       .then(({ data }) => {
-        setPosts(data as GetPostsResponse[]);
+        setPosts(
+			((data ?? []) as GetPostsResponse[]).filter(
+			(post) => post.title?.trim()
+			)
+		);
         if (session?.user) {
           supaClient
             .from("post_votes")

@@ -13,8 +13,8 @@ export default function NavBar() {
           <img
             id="logo"
             className="nav-logo"
-            src='../images/RoeReReBlackTransparent.png'
-            alt="logo"
+            src=''
+            alt=""
           />
         </Link>
 

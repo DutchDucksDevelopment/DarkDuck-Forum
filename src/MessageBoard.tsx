@@ -20,7 +20,7 @@ export default function MessageBoard() {
     <div className="message-board-container">
       {userProfile.session ? (
         <div>
-          <h2 className="message-board-header-link">Message Board</h2>
+          <h2 className="message-board-header-link">DarkDuck Forum</h2>
           {homeState ? < IntroMessage /> : <></>}
         </div>
       ) : (
@@ -44,22 +44,27 @@ export function IntroMessage() {
   return (
     <>
     <div className="message-board-intro-container">
-      <h3 className="message-board-intro">This is a simple project for me to learn more about React and databases.</h3>
+      <h3 className="message-board-intro">This is a simple forum trying to be an international version of the Dutch Kindertelefoon Forum.</h3>
       <h3
         className="message-board-intro"
       >
-        To view my other projects, do visit my repository <a
-          href="https://github.com/RoeReRe" target="_blank" className="font-medium text-blue-400 dark:text-blue-500 hover:underline"
-        >
-          here
-        </a>.
       </h3>
     </div>
-    <div className="message-board-intro-container mt-8">
-      <h3 className="message-board-intro">
-        Alternatively, do feel free to browse the forum :{")"}
-      </h3>
-    </div>
+		<div className="message-board-intro-container mt-8">
+		  <h3 className="message-board-intro">Rules:</h3>
+		  <ul>
+		    <li>
+		       - This forum is intended for children ages 12–18 to discuss their problems
+		      or questions. For more information, translate “Forum Regels” from the
+		      Kindertelefoon Forum.
+		    </li>
+		    <li>
+		       - NSFW topics are allowed only if they’re non-graphic. For example: Questions about STIs
+		      are allowed, but porn advertisements and child sexual abuse material (including recordings you, as a child, made) are
+		      absolutely prohibited.
+		    </li>
+		  </ul>
+		</div>
     </>
   );
 }
