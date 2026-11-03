@@ -14,7 +14,7 @@ export async function welcomeLoader() {
   const { data } = await supaClient
     .from("user_profiles")
     .select("*")
-    .eq("user_id", user?.id)
+    .eq("user_id", user.id)
     .single();
 
   if (data?.username) {
@@ -32,6 +32,32 @@ export default function Welcome() {
   const [formIsDirty, setFormIsDirty] = useState(false);
   const invalidString = useMemo(() => validateUsername(userName), [userName]);
 
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const { error } = await supaClient
+      .from("user_profiles")
+      .insert({
+        user_id: user.session?.user.id,
+        username: userName,
+      })
+      .select();
+
+    if (error) {
+      setServerError(
+        error.message || `Username "${userName}" is already taken`
+      );
+      return;
+    }
+
+    // Success: remember the new profile and continue to the
+    // page the user originally tried to reach
+    user.profile = { username: userName };
+    const target = window.localStorage.getItem("returnPath") || "/";
+    window.localStorage.removeItem("returnPath");
+    navigate(target);
+  };
+
   return (
     <Dialog
       allowClose={false}
@@ -42,43 +68,19 @@ export default function Welcome() {
           <p className="text-center">
             Let's get started by creating a username:
           </p>
-          <form
-            className="welcome-name-form"
-            onSubmit={async (event) => {
-              event.preventDefault();
-
-              // CORRECT: Use insert with object, NO .select()
-              const { error } = await supaClient
-                .from("user_profiles")
-                .insert({
-                  user_id: user.session?.user.id,
-                  username: userName,
-                });
-
-              if (error) {
-                setServerError(error.message || `Username "${userName}" is already taken`);
-              } else {
-                user.profile = { username: userName };
-                const target = window.localStorage.getItem("returnPath") || "/";
-                window.localStorage.removeItem("returnPath");
-                navigate(target);
-              }
-            }}
-          >
+          <form className="welcome-name-form" onSubmit={handleSubmit}>
             <input
               name="username"
               placeholder="Username"
+              className="welcome-name-input"
               onChange={({ target }) => {
                 setUserName(target.value);
-                if (!formIsDirty) {
-                  setFormIsDirty(true);
-                }
+                setFormIsDirty(true);
                 if (serverError) {
                   setServerError("");
                 }
               }}
-              className="welcome-name-input"
-            ></input>
+            />
             {formIsDirty && (invalidString || serverError) && (
               <p className="welcome-form-error-message validation-feedback">
                 {serverError || invalidString}
@@ -99,25 +101,23 @@ export default function Welcome() {
       }
     />
   );
-
 }
 
 /**
- * This only validates the form on the front end.
- * Server side validation is done at the sql level.
+ * Front-end validation only.
+ * Server-side validation is done at the SQL level.
  */
 function validateUsername(username: string): string | undefined {
   if (!username) {
     return "Username is required";
   }
-  const regex = /^[a-zA-Z0-9_]+$/;
   if (username.length < 4) {
     return "Username must be at least 4 characters long";
   }
   if (username.length > 14) {
     return "Username must be less than 15 characters long";
   }
-  if (!regex.test(username)) {
+  if (!/^[a-zA-Z0-9_]+$/.test(username)) {
     return "Username can only contain letters, numbers, and underscores";
   }
   return undefined;
