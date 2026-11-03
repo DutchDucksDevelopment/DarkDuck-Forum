@@ -7,37 +7,33 @@ const supabaseKey = (import.meta as any).env.VITE_SUPABASE_ANON_KEY;
 /**
  * Custom fetch wrapper for Supabase.
  *
- * 1. Strips double quotes from the `columns` query parameter,
- *    which breaks Supabase's count queries when they get encoded twice.
- * 2. Guarantees that `apikey` and `Authorization` headers are always
- *    present, while preserving any headers the Supabase client
- *    has already set (e.g. the user's access token).
+ * Strips double quotes from the `columns` query parameter while
+ * preserving the headers Supabase supplies.
  */
-const customFetch = async (url: string, options: RequestInit = {}): Promise<Response> => {
-  const urlObj = new URL(url);
+const customFetch = async (
+  input: RequestInfo | URL,
+  options: RequestInit = {},
+): Promise<Response> => {
+  let requestInput = input;
 
-  // Remove ALL double quotes from the columns parameter
-  if (urlObj.searchParams.has("columns")) {
-    const columns = urlObj.searchParams.get("columns");
-    urlObj.searchParams.set("columns", columns?.split('"').join("") || "");
-    url = urlObj.toString();
+  if (typeof input === "string" || input instanceof URL) {
+    const urlObj = new URL(input.toString());
+
+    if (urlObj.searchParams.has("columns")) {
+      const columns = urlObj.searchParams.get("columns") ?? "";
+      urlObj.searchParams.set("columns", columns.replaceAll('"', ""));
+      requestInput = urlObj.toString();
+    }
   }
 
-  // Start from any headers already set by the Supabase client
-  const headers: Record<string, string> = {
-    ...(options.headers as Record<string, string> | undefined),
-  };
+  const headers = new Headers(options.headers);
+  headers.set("apikey", supabaseKey);
 
-  // apikey must always be present
-  headers.apikey = supabaseKey;
-
-  // Preserve an existing Authorization header (e.g. the user's
-  // access token); fall back to the anon key if none is set
-  if (!headers.Authorization && !headers.authorization) {
-    headers.Authorization = `Bearer ${supabaseKey}`;
+  if (!headers.has("Authorization")) {
+    headers.set("Authorization", `Bearer ${supabaseKey}`);
   }
 
-  return fetch(url, {
+  return fetch(requestInput, {
     ...options,
     headers,
   });
