@@ -20,7 +20,7 @@ function createNewPost({
     throw new Error("You must be signed in to create a post.");
   }
 
-  return supaClient.rpc("create_new_post", {
+  return supaClient.rpc("create_post", {
     userid: session.user.id,
     title,
     content,
