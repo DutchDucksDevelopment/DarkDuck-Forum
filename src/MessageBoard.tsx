@@ -63,6 +63,14 @@ export function IntroMessage() {
 		      are allowed, but porn advertisements and child sexual abuse material (including recordings you, as a child, made) are
 		      absolutely prohibited.
 		    </li>
+		    <li>
+					 - Of course, I can't detect people's ages, and I can't block adults from accessing this website. But if there is evidence that your age is above 18, your account will be removed.
+				</li>
+				<li>
+					 - Sharing personal information is prohibited, and so is trying to chat with users off-platform.
+		    <li>
+					 - If you catch any posts or comments that break these rules, E-mail them to dutchducksdevelopment@gmail.com
+		    </li>
 		  </ul>
 		</div>
     </>
