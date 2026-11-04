@@ -50,7 +50,7 @@ export default function Login() {
                         <Auth
                             supabaseClient={supaClient}
                             view={authMode}
-                            providers={['google', 'discord']}
+                            providers={[]}
                             appearance={{
                                 theme: ThemeSupa,
                                 variables: {
