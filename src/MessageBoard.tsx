@@ -68,6 +68,7 @@ export function IntroMessage() {
 				</li>
 				<li>
 					 - Sharing personal information is prohibited, and so is trying to chat with users off-platform.
+				</li>	 
 		    <li>
 					 - If you catch any posts or comments that break these rules, E-mail them to dutchducksdevelopment@gmail.com
 		    </li>
