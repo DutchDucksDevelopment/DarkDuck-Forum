@@ -54,12 +54,14 @@ export function IntroMessage() {
 		  <h3 className="message-board-intro">Rules:</h3>
 		  <ul>
 		    <li>
-		       - This forum is intended for children ages 12–18 to discuss their problems
-		      or questions. For more information, translate “Forum Regels” from the
+		       - This forum is intended for children ages 12–18 to discuss or ask about ANYTHING. For more information, translate “Forum Regels” from the
 		      Kindertelefoon Forum.
 		    </li>
 		    <li>
-		       - NSFW topics are allowed only if they’re non-graphic. For example: Questions about STIs
+		       - You are forced to be anonymous on this forum, so don't have your real name as username for example
+		    </li>
+		    <li>
+		       - NSFW topics are allowed only if they’re non-graphic and meant for educational purposes. For example: Questions about STIs
 		      are allowed, but porn advertisements and child sexual abuse material (including recordings you, as a child, made) are
 		      absolutely prohibited.
 		    </li>
