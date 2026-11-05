@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Dialog from "./Dialog";
-import { Auth } from "@supabase/auth-ui-react";
+import { EmailAuth } from "./EmailAuth";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supaClient } from "./supa-client";
+
 
 export const setReturnPath = () => {
     // if (window.location.pathname == "/") {
@@ -47,28 +48,46 @@ export default function Login() {
                 dialogStateChange={(open) => setShowModal(open)}
                 contents={
                     <>
-                        <Auth
-                            supabaseClient={supaClient}
-                            view={authMode}
-                            providers={[]}
-                            appearance={{
-                                theme: ThemeSupa,
-                                variables: {
-                                    default: {
-                                        colors: {
-                                            brand: '#0091FF',
-                                            brandAccent: '#007FDF',
-                                        },
-                                    }
-                                },
-                                className: {
-                                    container: "login-form-container",
-                                    label: "login-form-label",
-                                    button: "login-form-button",
-                                    input: "login-form-input",
-                                }
-                            }}
-                        />
+						<EmailAuth
+						    supabaseClient={supaClient}
+						    authView={authMode}
+						    i18n={{
+						        sign_in: {
+						            email_label: "Username",
+						            email_input_placeholder: "Your username",
+						            password_label: "Password",
+						            password_input_placeholder: "Your password",
+						            button_label: "Sign in",
+						            loading_button_label: "Signing in…",
+						        },
+						        sign_up: {
+						            email_label: "Username",
+						            email_input_placeholder: "Choose a username",
+						            password_label: "Password",
+						            password_input_placeholder: "Choose a password",
+						            button_label: "Sign up",
+						            loading_button_label: "Signing up…",
+						        },
+						    }}
+						    appearance={{
+						        theme: ThemeSupa,
+						        variables: {
+						            default: {
+						                colors: {
+						                    brand: "#0091FF",
+						                    brandAccent: "#007FDF",
+						                },
+						            },
+						        },
+						        className: {
+						            container: "login-form-container",
+						            label: "login-form-label",
+						            button: "login-form-button",
+						            input: "login-form-input",
+						        },
+						    }}
+						/>
+
                         <button onClick={() => setShowModal(false)}>Close</button>
                     </>
                 }

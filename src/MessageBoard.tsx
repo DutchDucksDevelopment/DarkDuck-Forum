@@ -58,7 +58,10 @@ export function IntroMessage() {
 		      Kindertelefoon Forum.
 		    </li>
 		    <li>
-		       - You are forced to be anonymous on this forum, so don't have your real name as username for example
+		       - You need to be anonymous on this forum, so you can't have your real name as username for example.
+		    </li>
+		    <li>
+		       - Don't impersonate forum admins. The only admin accounts are: DDF_Admin, R0binH00d and H@ck_M3.
 		    </li>
 		    <li>
 		       - NSFW topics are allowed only if they’re non-graphic and meant for educational purposes. For example: Questions about STIs

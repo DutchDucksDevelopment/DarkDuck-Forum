@@ -66,7 +66,7 @@ export default function Welcome() {
         <>
           <h2 className="welcome-header">Welcome to the forum!!</h2>
           <p className="text-center">
-            Let's get started by creating a username:
+            Let's get started by creating a Display Name:
           </p>
           <form className="welcome-name-form" onSubmit={handleSubmit}>
             <input
@@ -114,8 +114,8 @@ function validateUsername(username: string): string | undefined {
   if (username.length < 4) {
     return "Username must be at least 4 characters long";
   }
-  if (username.length > 14) {
-    return "Username must be less than 15 characters long";
+  if (username.length > 19) {
+    return "Username must be less than 20 characters long";
   }
   if (!/^[a-zA-Z0-9_]+$/.test(username)) {
     return "Username can only contain letters, numbers, and underscores";

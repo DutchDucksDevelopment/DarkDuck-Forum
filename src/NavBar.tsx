@@ -19,7 +19,7 @@ export default function NavBar() {
         </Link>
 
         <ul className="nav-right-list">
-          <li className="nav-auth-item">
+          <li className="nav-message-board-list-item">
             <Link to="/1" className="nav-message-board-link">
               forum
             </Link>
