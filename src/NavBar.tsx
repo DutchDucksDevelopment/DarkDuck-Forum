@@ -13,7 +13,7 @@ export default function NavBar() {
           <img
             id="logo"
             className="nav-logo"
-            src='./public/images/DarkDuckForumLogoLarge.png'
+            src='./images/DarkDuckForumLogoLarge.png'
             alt=""
           />
         </Link>
